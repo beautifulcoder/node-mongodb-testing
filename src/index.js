@@ -11,7 +11,7 @@ app.put('/products/:id', async (req, res) => {
 
     await product.validate();
     await ProductModel.updateOne(
-      { id: req.params.id },
+      { _id: req.params.id },
       { $set: req.body },
       { upsert: true });
 

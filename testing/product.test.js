@@ -11,6 +11,8 @@ jest.spyOn(console, 'log').mockImplementation(() => {});
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
 describe('Product API PUT', () => {
+  const productId = 'c3fe7eb8076e4de58d8d87c5';
+
   beforeAll(async () => {
     await connectToDatabase();
   });
@@ -25,26 +27,24 @@ describe('Product API PUT', () => {
 
   it('should update a product', async () => {
     const product = {
-      id: 1,
       name: 'Test Product',
       price: 100
     };
 
     await supertest(app)
-      .put('/products/1')
+      .put(`/products/${productId}`)
       .send(product)
       .expect(204);
   });
 
   it('should return 400 if product is invalid', async () => {
     const product = {
-      id: 1,
       name: 'Test Product',
       price: 'invalid'
     };
 
     await supertest(app)
-      .put('/products/1')
+      .put(`/products/${productId}`)
       .send(product)
       .expect(400);
   });
